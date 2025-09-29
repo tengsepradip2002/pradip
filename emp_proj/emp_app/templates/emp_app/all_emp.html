@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Employees</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body style="background-color: #f8f9fa;">
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0"><i class="bi bi-people-fill"></i> All Employees</h4>
+    </div>
+
+    <div class="card-body bg-white">
+      <!-- Tabs for View Switching -->
+      <ul class="nav nav-tabs mb-3" id="viewTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="table-tab" data-bs-toggle="tab" data-bs-target="#tableView" type="button" role="tab">🔁 Horizontal Table</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="row-cards-tab" data-bs-toggle="tab" data-bs-target="#rowCards" type="button" role="tab">🧾 Horizontal Cards</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="stacked-tab" data-bs-toggle="tab" data-bs-target="#stackedCards" type="button" role="tab">📋 Vertical Cards</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="accordion-tab" data-bs-toggle="tab" data-bs-target="#accordionView" type="button" role="tab">📂 Accordion View</button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Horizontal Table View -->
+        <div class="tab-pane fade show active" id="tableView" role="tabpanel">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+              <thead class="table-primary">
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Department</th>
+                  <th>Role</th>
+                  <th>Location</th>
+                  <th>Salary</th>
+                  <th>Phone</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for emp in employees %}
+                  <tr>
+                    <td>{{ emp.id }}</td>
+                    <td>{{ emp.first_name }}</td>
+                    <td>{{ emp.last_name }}</td>
+                    <td>{{ emp.dept.name }}</td>
+                    <td>{{ emp.role.name }}</td>
+                    <td>{{emp.location}}</td>
+                    <td>${{ emp.salary }}</td>
+                    <td>{{ emp.phone }}</td>
+
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="7" class="text-muted">No employees found.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Horizontal Card Row View -->
+        <div class="tab-pane fade" id="rowCards" role="tabpanel">
+          <div class="row">
+            {% for emp in employees %}
+              <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ emp.first_name }} {{ emp.last_name }}</h5>
+                    <p class="card-text"><strong>Dept:</strong> {{ emp.dept.name }}</p>
+                    <p class="card-text"><strong>Role:</strong> {{ emp.role.name }}</p>
+                    <p class="card-text"><strong>Location:</strong> {{ emp.location }}</p>
+                    <p class="card-text"><strong>Salary:</strong> ${{ emp.salary }}</p>
+                    <p class="card-text"><strong>Phone:</strong> {{ emp.phone }}</p>
+                    
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+              <div class="text-muted text-center">No employees found.</div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Vertical Stacked Cards View -->
+        <div class="tab-pane fade" id="stackedCards" role="tabpanel">
+          {% for emp in employees %}
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <h5>{{ emp.first_name }} {{ emp.last_name }}</h5>
+                <p><strong>Department:</strong> {{ emp.dept.name }}</p>
+                <p><strong>Role:</strong> {{ emp.role.name }}</p>
+                <p><strong>Location:</strong> {{ emp.location }}</p>
+                <p><strong>Salary:</strong> ${{ emp.salary }}</p>
+                <p><strong>Phone:</strong> {{ emp.phone }}</p>
+                
+
+              </div>
+            </div>
+          {% empty %}
+            <div class="text-muted text-center">No employees found.</div>
+          {% endfor %}
+        </div>
+
+        <!-- Vertical Accordion View -->
+        <div class="tab-pane fade" id="accordionView" role="tabpanel">
+          <div class="accordion" id="empAccordion">
+            {% for emp in employees %}
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ emp.id }}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ emp.id }}">
+                    {{ emp.first_name }} {{ emp.last_name }}
+                  </button>
+                </h2>
+                <div id="collapse{{ emp.id }}" class="accordion-collapse collapse" data-bs-parent="#empAccordion">
+                  <div class="accordion-body">
+                    <p><strong>Department:</strong> {{ emp.dept.name }}</p>
+                    <p><strong>Role:</strong> {{ emp.role.name }}</p>
+                    <p><strong>Location:</strong> {{ emp.location }}</p>
+                    <p><strong>Salary:</strong> ${{ emp.salary }}</p>
+                    <p><strong>Phone:</strong> {{ emp.phone }}</p>
+                    
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+              <p class="text-muted text-center">No employees found.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer text-end bg-light">
+      <a href="{% url 'index' %}" class="btn btn-secondary"><i class="bi bi-arrow-left-circle me-1"></i>Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

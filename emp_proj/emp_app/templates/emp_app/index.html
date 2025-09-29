@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #e1bee7);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      color: white;
+      padding: 50px 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      animation: slideInDown 1s ease-out;
+    }
+
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      margin: 60px 20px;
+    }
+
+    .horizontal-buttons {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      padding: 18px 36px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .btn-gradient::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: skewX(-20deg);
+      transition: left 0.5s;
+    }
+
+    .btn-gradient:hover::before {
+      left: 100%;
+    }
+
+    .btn-gradient:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 25px;
+      color: #555;
+      font-size: 0.9em;
+      text-align: center;
+      background-color: #f0f0f0;
+      width: 100%;
+      border-top: 1px solid #ddd;
+    }
+
+    @media (max-width: 600px) {
+      .horizontal-buttons {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .btn-gradient {
+        width: 100%;
+      }
+
+      header h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚀 Employee Management System</h1>
+  </header>
+
+  <div class="actions">
+    <!-- Two horizontal buttons -->
+    <div class="horizontal-buttons">
+      <a class="btn-gradient" href="/add_emp">➕ Add New Employee</a>
+      <a class="btn-gradient" href="/all_emp">📋 Show All Employees</a>
+      <a class="btn-gradient" href="/delete_emp">❌ Delete Employee</a>
+      <a class="btn-gradient" href="/update_list">✏️ Update Employee</a>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 <strong>Meta For Data Technologies Pvt.Ltd</strong>. 
+  </footer>
+
+</body>
+</html>
